@@ -6,6 +6,15 @@ import NewCard from "./NewCard";
 import axios from "axios";
 
 const CardList = (props) => {
+  // get the board id from the selected board (BoardsDropDown component)
+  // const boardID = props.selectedBoard.id;
+
+  // use the props.getAllCards(board_id) --> cards dataset
+  //const cardsData = props.getAllCards(boardID);
+
+  // map each card in dataset to a <Card> array
+
+  // return your list of cards
   const [cardsData, setCardsData] = useState([
     {
       board_id: 1,
@@ -44,32 +53,28 @@ const CardList = (props) => {
     },
   ]);
   //console.log(props.selectedBoard ? props.selectedBoard[0].id: null)
-  
+
   if (props.selectedBoard !== undefined) {
-    console.log(props.selectedBoard)
+    console.log(props.selectedBoard);
     const boardID = props.selectedBoard[0].id;
-    console.log(boardID)
-    const boardCard = cardsData.filter((card) => card.board_id !== boardID)
-    console.log(boardCard)
-    setCardsData(boardCard)
-  } 
-  console.log(cardsData)
+    console.log(boardID);
+    const boardCard = cardsData.filter((card) => card.board_id !== boardID);
+    console.log(boardCard);
+    setCardsData(boardCard);
+  }
+  console.log(cardsData);
 
-  
   //console.log(props.selectedBoard)
-  
-  //let boardID = props.selectedBoard[0].id;
- 
 
-  
+  //let boardID = props.selectedBoard[0].id;
+
   //const boardID = 4;
-  
+
   //const cardsData = props.getBoardCards()
   //const boardCard = cardsData.filter((card) => card.board_id === boardID);
   //console.log(boardCard);
   //console.log(boardCard[0].board_title)
   //console.log(props.selectedBoard)
-  
 
   //console.log(props.selectedBoard[0].cards)
 
