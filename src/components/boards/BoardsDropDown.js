@@ -6,12 +6,12 @@ const BoardsDropDown = (props) => {
     // collect selected board element
     const selectElement = document.querySelector("#selected");
     // format new board message from boardsData
-    const selectedBoard = props.boardsData.filter(
+    const selectedBoardElement = props.boardsData.filter(
       (board) => board.title === selectElement.value
     );
-    // update selected board state
-    props.updateSelectedBoard(selectedBoard);
-    //console.log(selectedBoard[0].id); // here's your board ID GURRRLLL!
+    // update selected board id state
+    props.updateSelectedBoard(selectedBoardElement[0].id);
+    // console.log(selectedBoard[0].id); // here's your board ID GURRRLLL!
   };
 
   // gather board titles as options in Boards Drop Down Table
