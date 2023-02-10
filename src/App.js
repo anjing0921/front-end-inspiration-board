@@ -8,7 +8,6 @@ import NewBoardForm from "./components/boards/NewBoardForm";
 import axios from "axios";
 import CardList from "./components/cards/CardList";
 
-
 // ~~~~~~ Helper Functions ~~~~~~
 // Function for sending get requests
 const getAllBoards = () => {
@@ -39,43 +38,43 @@ const registerNewBoard = (newBoard) => {
     });
 };
 
-
 function App() {
-
+  // ~~~ states ~~~
   const [boardsData, setBoardsData] = useState([]);
   const [selectedBoardID, setSelectedBoardID] = useState(1);
-  const [cardsData, setCardsData] = useState([])
-      
-    
-  const getBoardCard = async (boardId) =>{
-    return axios
-            .get(
-              `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoardID}/cards`,
-            {}
-          )
-    
-          .then((response) => {
-            //return response.data
-            setCardsData(response.data)})
-          //console.log (response.data)
-          
-          .catch((error) => {
-            console.log(error);
-          });
-        };
-    
-  useEffect(() =>{
+  const [cardsData, setCardsData] = useState([]);
+
+  const getBoardCard = async (boardId) => {
+    return (
+      axios
+        .get(
+          `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoardID}/cards`,
+          {}
+        )
+
+        .then((response) => {
+          //return response.data
+          setCardsData(response.data);
+        })
+        //console.log (response.data)
+
+        .catch((error) => {
+          console.log(error);
+        })
+    );
+  };
+
+  useEffect(() => {
     getBoardCard(selectedBoardID);
-        }, [selectedBoardID]);
+  }, [selectedBoardID]);
   const addCard = (message) => {
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoardID}/cards`,
         {
-          
           message: message,
           likes_count: 0,
-          board_id:selectedBoardID
+          board_id: selectedBoardID,
         }
       )
       .then((response) => {
@@ -86,22 +85,7 @@ function App() {
       .catch((error) => {
         console.log("Error:", error);
       });
-  };   
-  // const addCard = (message) => {
-  //   const newCardList = [...cardsData];
-  
-  //   const nextId = Math.max(...newCardList.map((card) => card.id)) + 1;
-  
-  //   newCardList.push({
-  //       id: nextId,
-  //       message: message,
-  //       board_id:selectedBoardID,
-  //       likes_count:0
-
-
-  //     });
-  //   setCardsData(newCardList);
-  //   };
+  };
 
   const likeCard = (card_id) => {
     const card = cardsData.map((card) => {
@@ -110,33 +94,25 @@ function App() {
         return card;
       } else {
         return card;
-        }
+      }
     });
-  
+
     setCardsData(card);
-    };
-  
-  // const deleteCard = (card_id) => {
-  //   const newcards = cardsData.filter((card) => card.id !== card_id );
-  //   console.log(newcards);
-  //   setCardsData(newcards);
-  // };  
+  };
 
   const deleteCard = (cardId) => {
     axios
       .delete(`${process.env.REACT_APP_BACKEND_URL}/cards/${cardId}`)
       .then(() => {
-        setCardsData((prevCards) => prevCards.filter((card) => card.id !== cardId));
-        })
+        setCardsData((prevCards) =>
+          prevCards.filter((card) => card.id !== cardId)
+        );
+      })
       .catch((error) => {
         console.log(error);
-        });
-    };
-  
-  
- 
-  // ~~~~~~ boards data ~~~~~~
-  //const [boardsData, setBoardsData] = useState([]);
+      });
+  };
+
   // function to make get request whenever boardsData gets modified
   useEffect(() => {
     getAllBoards().then((boards) => {
@@ -160,9 +136,6 @@ function App() {
     setBoardsData(newBoardsData);
   };
 
-
-  // state to track selected board id
-  //const [selectedBoardID, setSelectedBoardID] = useState(1);
   // function to update selected board state id
   const updateSelectedBoard = (selectedBoardElementID) => {
     setSelectedBoardID(selectedBoardElementID);
@@ -173,7 +146,7 @@ function App() {
       (board) => board.id === selectedBoardID
     );
     return selectedBoard[0];
-  }
+  };
 
   return (
     <main className="App">
